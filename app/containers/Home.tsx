@@ -32,7 +32,7 @@ export default class Home extends React.Component<NavigationScreenProps> {
           <Right>
             <Button
               transparent
-              onPress={() => alert('implement me')}>
+              onPress={() => this.props.navigation.navigate("NewPayment")}>
               <Text>Send</Text>
             </Button>
           </Right>
