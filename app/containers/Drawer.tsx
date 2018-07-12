@@ -1,16 +1,19 @@
-import * as React from 'react'
-import {
-  Container,
-  Button,
-  Content,
-  Header,
-  Icon,
-  List,
-  ListItem,
-  Text
-} from 'native-base';
+import { Button, Container, Content, Header, Icon, List, ListItem, Text } from 'native-base';
+import * as React from 'react';
+import { AsyncStorage } from 'react-native';
+import { NavigationScreenProps } from 'react-navigation';
 
-export default class Drawer extends React.Component<{}, {}> {
+export default class Drawer extends React.Component<NavigationScreenProps> {
+  async logout() {
+    try {
+      await AsyncStorage.clear()
+
+      this.props.navigation.navigate('AuthLoading');
+    } catch (error) {
+      // Error during logout
+    }
+  }
+
   render() {
     return (
       <Container style={{backgroundColor: '#F5FCFF'}}>
@@ -29,7 +32,7 @@ export default class Drawer extends React.Component<{}, {}> {
             <ListItem>
               <Button
                 transparent
-                onPress={() => { alert('implement me') }}>
+                onPress={() => { this.logout() }}>
                 <Icon name="log-out" />
                 <Text>Log out</Text>
               </Button>
