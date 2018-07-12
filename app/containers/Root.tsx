@@ -2,6 +2,13 @@ import * as React from 'react'
 import { createDrawerNavigator, NavigationScreenProps, createStackNavigator, createSwitchNavigator } from 'react-navigation'
 import Drawer from './Drawer'
 import HomeScreen from './Home'
+import { AuthLoadingScreen, SignInScreen } from './SignInScreen'
+
+const AuthStack = createStackNavigator({
+  SignIn: SignInScreen
+}, {
+  headerMode: 'none'
+});
 
 const HomeStack = createStackNavigator(
   {
@@ -40,10 +47,12 @@ const AppStack = createDrawerNavigator(
 
 const Navigator = createSwitchNavigator(
   {
-    App: AppStack
+    AuthLoading: AuthLoadingScreen,
+    App: AppStack,
+    Auth: AuthStack
   },
   {
-    initialRouteName: 'App',
+    initialRouteName: 'AuthLoading',
     headerMode: 'none'
   }
 )
