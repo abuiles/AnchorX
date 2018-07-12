@@ -3,6 +3,7 @@ import { createDrawerNavigator, NavigationScreenProps, createStackNavigator, cre
 import Drawer from './Drawer'
 import HomeScreen from './Home'
 import { AuthLoadingScreen, SignInScreen } from './SignInScreen'
+import NewPaymentStack from './NewPayment'
 
 const AuthStack = createStackNavigator({
   SignIn: SignInScreen
@@ -14,6 +15,9 @@ const HomeStack = createStackNavigator(
   {
     Home: {
       screen: HomeScreen
+    },
+    NewPayment: {
+      screen: NewPaymentStack
     }
   },
   {
