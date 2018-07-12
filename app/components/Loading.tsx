@@ -4,7 +4,7 @@ import {
   StyleSheet,
   StatusBar,
   View
-} from 'react-native';
+} from 'react-native'
 
 const styles = StyleSheet.create({
   container: {
