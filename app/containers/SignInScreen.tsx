@@ -8,6 +8,19 @@ import Login from '../components/Login'
 import { User } from '../Types'
 import layoutStyles from '../styles/layout'
 
+import gql from "graphql-tag"
+import { Mutation } from "react-apollo"
+
+const SIGNUP = gql`
+  mutation signup($username: String!) {
+    signup(username: $username) {
+      id
+      username
+      stellarAccount
+    }
+  }
+`
+
 export class AuthLoadingScreen extends React.Component<NavigationScreenProps> {
   constructor(props: NavigationScreenProps) {
     super(props)
@@ -31,17 +44,13 @@ export class AuthLoadingScreen extends React.Component<NavigationScreenProps> {
 }
 
 export class SignInScreen extends React.Component<NavigationScreenProps> {
-  async login(username: string): Promise<User|null> {
+  async login(signupMutation: any, username: string): Promise<User | null> {
     try {
-      await AsyncStorage.setItem('@AnchorX::Auth', JSON.stringify({
-        username
-      }))
+      const { data: { signup } } = await signupMutation({ variables: { username } })
 
-      return {
-        username,
-        id: '1233213',
-        stellarAccount: '123213'
-      }
+      await AsyncStorage.setItem('@AnchorX::Auth', JSON.stringify(signup))
+
+      return signup
     } catch (error) {
       return null// Error saving data
     }
@@ -53,22 +62,26 @@ export class SignInScreen extends React.Component<NavigationScreenProps> {
 
   render() {
     return (
-      <Container style={{backgroundColor: '#F5FCFF'}}>
-        <Header style={[layoutStyles.header]}>
-          <Left />
-          <Body>
-            <Title>AnchorX</Title>
-          </Body>
-          <Right/>
-        </Header>
-        <Content
-          scrollEnabled={false}>
-          <Login
-            login={this.login.bind(this)}
-            didLogin={this.didLogin.bind(this)}
-          />
-        </Content>
-      </Container>
+      <Mutation mutation={SIGNUP}>
+        {(signup, { data }) => (
+          <Container style={{ backgroundColor: '#F5FCFF' }}>
+            <Header style={[layoutStyles.header]}>
+              <Left />
+              <Body>
+                <Title>AnchorX</Title>
+              </Body>
+              <Right />
+            </Header>
+            <Content
+              scrollEnabled={false}>
+              <Login
+                login={this.login.bind(this, signup)}
+                didLogin={this.didLogin.bind(this)}
+              />
+            </Content>
+          </Container>
+        )}
+      </Mutation>
     )
   }
 }
