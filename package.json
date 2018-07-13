@@ -53,7 +53,10 @@
     ],
     "transform": {
       "^.+\\.tsx?$": "ts-jest"
-    }
+    },
+    "transformIgnorePatterns": [
+      "node_modules/(?!native-base-shoutem-theme|react-native-easy-grid|react-native|react-navigation|native-base/node_modules/react-native-vector-icons)"
+    ]
   },
   "dependencies": {
     "@types/react-navigation": "^2.0.10",
