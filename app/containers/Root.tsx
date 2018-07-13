@@ -14,7 +14,7 @@ import HomeScreen from './Home'
 import { AuthLoadingScreen, SignInScreen } from './SignInScreen'
 import NewPaymentStack from './NewPayment'
 
-const GraphQLHost = process.env.GraphQLHost
+const GraphQLHost = 'https://anchorx-api.herokuapp.com/'
 
 const AuthStack = createStackNavigator({
   SignIn: SignInScreen
