@@ -1,18 +1,19 @@
 import * as React from 'react'
 import { createDrawerNavigator, NavigationScreenProps, createStackNavigator, createSwitchNavigator } from 'react-navigation'
 
-import { ApolloClient } from 'apollo-client';
-import { InMemoryCache } from 'apollo-cache-inmemory';
-import { HttpLink } from 'apollo-link-http';
-import { onError } from 'apollo-link-error';
-import { withClientState } from 'apollo-link-state';
-import { ApolloLink, Observable } from 'apollo-link';
-import { ApolloProvider } from "react-apollo";
+import { ApolloClient } from 'apollo-client'
+import { ApolloLink, Observable } from 'apollo-link'
+import { ApolloProvider } from "react-apollo"
+import { HttpLink } from 'apollo-link-http'
+import { InMemoryCache } from 'apollo-cache-inmemory'
+import { onError } from 'apollo-link-error'
+import { withClientState } from 'apollo-link-state'
 
 import Drawer from './Drawer'
 import HomeScreen from './Home'
 import { AuthLoadingScreen, SignInScreen } from './SignInScreen'
 import NewPaymentStack from './NewPayment'
+import resolvers from '../resolvers'
 
 const GraphQLHost = 'https://anchorx-api.herokuapp.com/'
 
@@ -71,8 +72,6 @@ const Navigator = createSwitchNavigator(
     headerMode: 'none'
   }
 )
-
-const resolvers =  {}
 
 export default class Root extends React.Component {
   createApolloClient() : ApolloClient {
