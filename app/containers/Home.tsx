@@ -20,52 +20,52 @@ export default class Home extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <CurrentUserQuery query={GET_CURRENT_USER_QUERY}>
-      {({ loading, data }) => {
-        if (loading) {
-          return <Loading />
-        }
+        {({ loading, data }) => {
+           if (loading) {
+             return <Loading />
+           }
 
-        return (
-          <Container style={{backgroundColor: '#F5FCFF'}}>
-            <Header style={layoutStyles.header}>
-              <Left>
-                <Button
-                  transparent
-                  onPress={() => {
-                      this.props.navigation.openDrawer()
-                  }}>
-                  <Icon name="menu" />
-                </Button>
-              </Left>
-              <Body>
-                <Title>AnchorX</Title>
-              </Body>
-              <Right>
-                <Button
-                  transparent
-                  onPress={() => this.props.navigation.navigate("NewPayment")}>
-                  <Text>Send</Text>
-                </Button>
-              </Right>
-            </Header>
-            <Content scrollEnabled={false}>
-              <View
-                style={[
-                  {
-                    justifyContent: 'center',
-                    alignItems: 'center'
-                  },
-                  s.pa4
-                ]}
-              >
-                <Text>$1000</Text>
-              </View>
-              <View style={s.aic}>
-                <Text>Hola {data.me.username}</Text>
-              </View>
-            </Content>
-          </Container>)
-      }}
+           return (
+             <Container style={{backgroundColor: '#F5FCFF'}}>
+               <Header style={layoutStyles.header}>
+                 <Left>
+                   <Button
+                     transparent
+                     onPress={() => {
+                         this.props.navigation.openDrawer()
+                     }}>
+                     <Icon name="menu" />
+                   </Button>
+                 </Left>
+                 <Body>
+                   <Title>AnchorX</Title>
+                 </Body>
+                 <Right>
+                   <Button
+                     transparent
+                     onPress={() => this.props.navigation.navigate("NewPayment")}>
+                     <Text>Send</Text>
+                   </Button>
+                 </Right>
+               </Header>
+               <Content scrollEnabled={false}>
+                 <View
+                   style={[
+                     {
+                       justifyContent: 'center',
+                       alignItems: 'center'
+                     },
+                     s.pa4
+                   ]}
+                 >
+                   <Text>$1000</Text>
+                 </View>
+                 <View>
+                   <Text style={s.tc}>Hola {data.me.username}, your Stellar account is {data.me.stellarAccount}</Text>
+                 </View>
+               </Content>
+             </Container>)
+        }}
       </CurrentUserQuery>
     )
   }
