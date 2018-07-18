@@ -34,7 +34,7 @@ export default class Home extends React.Component<NavigationScreenProps> {
                      onPress={() => {
                          this.props.navigation.openDrawer()
                      }}>
-                     <Icon name="menu" />
+                     <Icon ios='ios-menu' android="md-menu"/>
                    </Button>
                  </Left>
                  <Body>

@@ -13,8 +13,10 @@
     "@types/react-test-renderer": "^16.0.1",
     "babel-core": "^6.26.3",
     "babel-plugin-import-graphql": "^2.6.2",
+    "babel-preset-react-native-stage-0": "^1.0.1",
     "babel-runtime": "^6.26.0",
-    "jest-expo": "~27.0.0",
+    "jest": "^23.4.1",
+    "jest-react-native": "^18.0.0",
     "prop-types": "^15.6.2",
     "react-dom": "16.3.1",
     "react-native-scripts-ts": "1.15.0",
@@ -24,12 +26,10 @@
     "tslib": "^1.9.1",
     "typescript": "^2.8.3"
   },
-  "main": "./node_modules/react-native-scripts-ts/build/bin/crna-entry.js",
   "scripts": {
-    "start": "react-native-scripts-ts start",
-    "eject": "react-native-scripts-ts eject",
-    "android": "react-native-scripts-ts android",
-    "ios": "react-native-scripts-ts ios",
+    "start": "react-native start",
+    "android": "react-native run-android",
+    "ios": "react-native run-ios",
     "test": "jest",
     "storybook": "storybook start -p 7007"
   },
@@ -47,7 +47,7 @@
       "json",
       "node"
     ],
-    "preset": "jest-expo",
+    "preset": "react-native",
     "testMatch": [
       "**/__tests__/**/*.[tj]s?(x)",
       "**/?(*.)(spec|test).[tj]s?(x)"
@@ -68,7 +68,6 @@
     "apollo-link-http": "^1.5.4",
     "apollo-link-state": "^0.4.1",
     "babel-plugin-transform-inline-environment-variables": "^0.4.3",
-    "expo": "^27.0.1",
     "graphql": "^0.13.2",
     "graphql-tag": "^2.9.2",
     "native-base": "^2.7.1",
@@ -76,6 +75,7 @@
     "react-apollo": "^2.1.9",
     "react-native": "~0.55.2",
     "react-native-style-tachyons": "^3.7.0",
+    "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.6.2"
   }
 }
