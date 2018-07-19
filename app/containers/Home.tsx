@@ -4,10 +4,13 @@ import { View } from 'react-native'
 import { styles as s } from "react-native-style-tachyons"
 import { NavigationScreenProps } from 'react-navigation'
 
+import { Asset } from 'stellar-sdk'
+
 import Loading from '../components/Loading'
 import layoutStyles from '../styles/layout'
 import CurrentUserQuery, { GET_CURRENT_USER_QUERY } from '../queries/CurrentUser'
 import { User } from '../Types'
+import Balance from './Balance'
 
 export default class Home extends React.Component<NavigationScreenProps> {
   static navigationOptions = {
@@ -18,6 +21,11 @@ export default class Home extends React.Component<NavigationScreenProps> {
   }
 
   render() {
+    const anchorXUSD = new Asset(
+      'USD',
+      'GBX67BEOABQAELIP2XTC6JXHJPASKYCIQNS7WF6GWPSCBEAJEK74HK36'
+    )
+
     return (
       <CurrentUserQuery query={GET_CURRENT_USER_QUERY}>
         {({ loading, data }) => {
@@ -58,7 +66,9 @@ export default class Home extends React.Component<NavigationScreenProps> {
                      s.pa4
                    ]}
                  >
-                   <Text>$1000</Text>
+                   <Balance
+                     accountId={data.me.stellarAccount}
+                     asset={anchorXUSD} />
                  </View>
                  <View>
                    <Text style={s.tc}>Hola {data.me.username}, your Stellar account is {data.me.stellarAccount}</Text>
