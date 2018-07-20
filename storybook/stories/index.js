@@ -9,6 +9,7 @@ import Welcome from './Welcome'
 import Loading from '../../app/components/Loading'
 import Login from './Login'
 import Balance from '../../app/containers/Balance'
+import Payment from './Payment'
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />)
 
@@ -33,4 +34,12 @@ storiesOf('Balance', module)
         asset={anchorXUSD}
       />
     )
+  })
+
+storiesOf('Payment', module)
+  .add('from account -$10', () => {
+    return (<Payment operation={'43397496315056129'} /> )
+  })
+  .add('to account +$10', () => {
+    return (<Payment operation={'43381600641101825'} /> )
   })
