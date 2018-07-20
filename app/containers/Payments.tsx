@@ -1,12 +1,12 @@
 import * as React from 'react'
 import { View, StyleSheet, FlatList } from 'react-native'
 
-import { Container, Content, Text, Button, Spinner } from 'native-base';
-import { styles as s } from "react-native-style-tachyons";
+import { Container, Content, Text, Button, Spinner } from 'native-base'
+import { styles as s } from 'react-native-style-tachyons'
 
 import { Asset, PaymentOperationRecord, Server, Network } from 'stellar-sdk'
 
-import Payment from '../components/Payment';
+import Payment from '../components/Payment'
 
 interface Props {
   accountId: string
@@ -38,6 +38,7 @@ export default class Payments extends React.Component<Props, State> {
     Network.useTestNetwork()
     const stellarServer = new Server('https://horizon-testnet.stellar.org')
 
+    // Load payments for account in descending order. Most recentfirst.
     let builder = stellarServer
       .payments()
       .forAccount(accountId)
@@ -56,6 +57,9 @@ export default class Payments extends React.Component<Props, State> {
     }
   }
 
+  /* Use `now` in the cursor to be notified of new payments. If you don't
+   * set the cursor to "now", then you'll be notified about all the
+   * payments since account's creation.*/
   listenForPayments(cursor = 'now') {
     const { closeStreaming } = this.state
 
@@ -72,6 +76,7 @@ export default class Payments extends React.Component<Props, State> {
     Network.useTestNetwork()
     const server = new Server('https://horizon-testnet.stellar.org')
 
+    // Notice how we are using PaymentOperationRecord from @types/stellar-sdk
     let handleMessage = (payment: PaymentOperationRecord) => {
       const { asset } = this.props
       const { payments } = this.state
@@ -93,6 +98,8 @@ export default class Payments extends React.Component<Props, State> {
     })
   }
 
+  /* After the component mounts, load the first page of payments and
+   * setup streaming*/
   async componentDidMount() {
     const payments = await this.loadPayments()
 
@@ -113,6 +120,10 @@ export default class Payments extends React.Component<Props, State> {
     }
   }
 
+  /* Method use for pagination, it gets calls when the end of the list is
+   * reached.  It calls the generic function loadPayments using the last
+   * item in payments as the cursor.
+   */
   async fetchMoreData() {
     const { accountId } = this.props
     const { payments } = this.state
