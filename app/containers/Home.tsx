@@ -11,6 +11,7 @@ import layoutStyles from '../styles/layout'
 import CurrentUserQuery, { GET_CURRENT_USER_QUERY } from '../queries/CurrentUser'
 import { User } from '../Types'
 import Balance from './Balance'
+import Payments from './Payments'
 
 export default class Home extends React.Component<NavigationScreenProps> {
   static navigationOptions = {
@@ -71,7 +72,10 @@ export default class Home extends React.Component<NavigationScreenProps> {
                      asset={anchorXUSD} />
                  </View>
                  <View>
-                   <Text style={s.tc}>Hola {data.me.username}, your Stellar account is {data.me.stellarAccount}</Text>
+                   <Payments
+                     accountId={data.me.stellarAccount}
+                     asset={anchorXUSD}
+                   />
                  </View>
                </Content>
              </Container>)
