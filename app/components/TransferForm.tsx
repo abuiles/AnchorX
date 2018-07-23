@@ -44,7 +44,7 @@ class TransferForm extends React.Component<Props, State> {
     const { amount, sending } = this.state
 
     return (
-      <Container>
+      <Container style={{backgroundColor: '#F5FCFF'}}>
         <Content scrollEnabled={false}>
           <Form>
             <Item floatingLabel>

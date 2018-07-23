@@ -19,32 +19,41 @@ export default class Drawer extends React.Component<NavigationScreenProps> {
   render() {
     return (
       <Container style={{backgroundColor: '#F5FCFF'}}>
-      <Header style={{backgroundColor: '#F5FCFF'}} />
-      <Content>
-        <List>
-          <ListItem>
-            <Button
-              transparent
-              onPress={() => alert('implement me')}>
-              >
-              <Icon name="ios-qr-scanner" />
-              <Text>Your QR Code</Text>
-            </Button>
-          </ListItem>
-          <ListItem>
-            <ApolloConsumer>
-              {cache => (
-                <Button
-                  transparent
-                  onPress={() => { this.logout(cache) }}>
-                  <Icon name="log-out" />
-                  <Text>Log out</Text>
-                </Button>
-              )}
-            </ApolloConsumer>
-          </ListItem>
-        </List>
-      </Content>
+        <Header style={{backgroundColor: '#F5FCFF'}} />
+        <Content>
+          <List>
+            <ListItem>
+              <Button
+                transparent
+                onPress={() => alert('implement me')}>
+                >
+                <Icon name='ios-qr-scanner' />
+                <Text>Your QR Code</Text>
+              </Button>
+            </ListItem>
+            <ListItem>
+              <Button
+                transparent
+                onPress={() => this.props.navigation.navigate('Deposit')}>
+                >
+                <Icon name='ios-send' />
+                <Text>Deposit money</Text>
+              </Button>
+            </ListItem>
+            <ListItem>
+              <ApolloConsumer>
+                {cache => (
+                  <Button
+                    transparent
+                    onPress={() => { this.logout(cache) }}>
+                    <Icon name='log-out' />
+                    <Text>Log out</Text>
+                  </Button>
+                )}
+              </ApolloConsumer>
+            </ListItem>
+          </List>
+        </Content>
       </Container>
     )
   }
