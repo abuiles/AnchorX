@@ -8,14 +8,23 @@ import layoutStyles from '../styles/layout'
 import DismissableStackNavigator from './DismissableStackNavigator'
 import { Transaction } from '../Types'
 import TransferForm from '../components/TransferForm'
+import CreditDebitMutation, { CREDIT_MUTATION } from '../mutations/CreditDebit'
+import CurrentUserQuery, { GET_CURRENT_USER_QUERY } from '../queries/CurrentUser'
 
 export class DepositScreen extends React.Component<NavigationScreenProps> {
-  async deposit(amount: string): Promise<Transaction> {
-    const transaction = await Promise.resolve({
-      id: '1234'
+  async deposit(mutation, username: string, amount: string): Promise<Transaction> {
+    const { data } = await mutation({
+      variables: {
+        username,
+        amount
+      }
     })
 
-    return transaction
+    return data.credit
+  }
+
+  didSend(): void {
+    this.props.navigation.navigate('Home')
   }
 
   render() {
@@ -24,24 +33,41 @@ export class DepositScreen extends React.Component<NavigationScreenProps> {
     const userSelected = () => navigation.navigate('PaymentDetails')
 
     return (
-      <Container style={{backgroundColor: '#F5FCFF'}}>
-        <Header style={layoutStyles.header}>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.screenProps.dismiss()}>
-              <Icon name='close' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Deposit</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content scrollEnabled={false}>
-          <TransferForm send={this.deposit.bind(this)} />
-        </Content>
-      </Container>
+      <CurrentUserQuery query={GET_CURRENT_USER_QUERY}>
+        {({ loading, data }) => {
+           if (loading) {
+             return <Loading />
+           }
+
+           const { me } = data
+           return (
+             <Container style={{backgroundColor: '#F5FCFF'}}>
+               <Header style={layoutStyles.header}>
+                 <Left>
+                   <Button
+                     transparent
+                     onPress={() => this.props.screenProps.dismiss()}>
+                     <Icon name='close' />
+                   </Button>
+                 </Left>
+                 <Body>
+                   <Title>Deposit</Title>
+                 </Body>
+                 <Right />
+               </Header>
+               <Content scrollEnabled={false}>
+                 <CreditDebitMutation mutation={CREDIT_MUTATION}>
+                   {(mutation, { data }) => {
+                      return (
+                        <TransferForm send={this.deposit.bind(this, mutation, me.username)} didSend={this.didSend.bind(this)} />
+                      )
+                   }}
+                 </CreditDebitMutation>
+               </Content>
+             </Container>
+           )
+        }}
+      </CurrentUserQuery>
     )
   }
 }
