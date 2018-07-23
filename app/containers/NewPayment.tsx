@@ -2,86 +2,79 @@ import * as React from 'react'
 import { View } from 'react-native'
 
 import { NavigationScreenProps } from 'react-navigation'
-import { Body, Button, Container, Content, Header, Icon, Left, Right, Text, Title } from 'native-base'
+import { Body, Button, Container, Content, Header, Icon, Left, Right, Title } from 'native-base'
 import { styles as s } from 'react-native-style-tachyons'
 import layoutStyles from '../styles/layout'
 import DismissableStackNavigator from './DismissableStackNavigator'
-
-
-export class PaymentDetailsScreen extends React.Component<NavigationScreenProps> {
-  render() {
-    return (
-      <Container style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
-        <Header style={layoutStyles.header}>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.screenProps.dismiss()}>
-              <Icon name='close' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>New payment</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content scrollEnabled={false}>
-          <View
-            style={[
-              s.jcc,
-              s.aic,
-              s.pa4
-            ]}
-          >
-            <Text style={[s.pa4]}>Payment details screen</Text>
-          </View>
-        </Content>
-      </Container>
-    )
-  }
-}
+import PaymentForm from '../components/PaymentForm'
+import CurrentUserQuery, { GET_CURRENT_USER_QUERY } from '../queries/CurrentUser'
+import PaymentMutation, { PAYMENT_MUTATION } from '../mutations/Payment'
+import { Transaction } from '../Types'
 
 export class RecipientScreen extends React.Component<NavigationScreenProps> {
+  async payment(mutation, sender: string, recipient: string, amount: string): Promise<Transaction> {
+    const { data } = await mutation({
+      variables: {
+        sender,
+        recipient,
+        amount
+      }
+    })
+
+    return data.payment
+  }
+
+  didSend(): void {
+    this.props.navigation.navigate('Home')
+  }
+
   render() {
     const { navigation } = this.props
 
     const userSelected = () => navigation.navigate('PaymentDetails')
 
     return (
-      <Container style={{backgroundColor: '#F5FCFF'}}>
-        <Header style={layoutStyles.header}>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.screenProps.dismiss()}>
-              <Icon name='close' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>Recipient</Title>
-          </Body>
-          <Right>
-            <Button
-              transparent>
-              <Icon name='ios-qr-scanner' />
-            </Button>
-          </Right>
-        </Header>
-        <Content scrollEnabled={false}>
-          <View
-            style={[
-              s.jcc,
-              s.aic,
-              s.pa4
-            ]}
-          >
-            <Text style={[s.pa4]}>Select recipient screen</Text>
-            <Button style={[s.pa4]} onPress={() => userSelected() }>
-              <Text>Go to payment details screen</Text>
-            </Button>
-          </View>
-        </Content>
-      </Container>
+      <CurrentUserQuery query={GET_CURRENT_USER_QUERY}>
+      {({ loading, data }) => {
+        if (loading) {
+          return <Loading />
+        }
+
+        const { me } = data
+
+        return (
+          <Container style={{backgroundColor: '#F5FCFF'}}>
+            <Header style={layoutStyles.header}>
+              <Left>
+                <Button
+                  transparent
+                  onPress={() => this.props.screenProps.dismiss()}>
+                  <Icon name='close' />
+                </Button>
+              </Left>
+              <Body>
+                <Title>New payment</Title>
+              </Body>
+              <Right>
+                <Button
+                  transparent>
+                  <Icon name='ios-qr-scanner' />
+                </Button>
+              </Right>
+            </Header>
+            <Content scrollEnabled={false}>
+              <PaymentMutation mutation={PAYMENT_MUTATION}>
+                {(mutation, { data }) => {
+                   return (
+                     <PaymentForm send={this.payment.bind(this, mutation, me.username)} didSend={this.didSend.bind(this)} />
+                   )
+                }}
+              </PaymentMutation>
+            </Content>
+          </Container>
+        )
+      }}
+      </CurrentUserQuery>
     )
   }
 }
@@ -90,9 +83,6 @@ export default DismissableStackNavigator(
   {
     Recipient: {
       screen: RecipientScreen
-    },
-    PaymentDetails: {
-      screen: PaymentDetailsScreen
     }
   },
   {
