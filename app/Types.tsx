@@ -3,3 +3,8 @@ export interface User {
   stellarAccount: string
   id: string
 }
+
+export interface Transaction {
+  id: string
+  memo?: string
+}
