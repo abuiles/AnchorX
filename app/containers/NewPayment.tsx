@@ -6,40 +6,7 @@ import { Body, Button, Container, Content, Header, Icon, Left, Right, Text, Titl
 import { styles as s } from 'react-native-style-tachyons'
 import layoutStyles from '../styles/layout'
 import DismissableStackNavigator from './DismissableStackNavigator'
-
-
-export class PaymentDetailsScreen extends React.Component<NavigationScreenProps> {
-  render() {
-    return (
-      <Container style={{ flex: 1, backgroundColor: '#F5FCFF' }}>
-        <Header style={layoutStyles.header}>
-          <Left>
-            <Button
-              transparent
-              onPress={() => this.props.screenProps.dismiss()}>
-              <Icon name='close' />
-            </Button>
-          </Left>
-          <Body>
-            <Title>New payment</Title>
-          </Body>
-          <Right />
-        </Header>
-        <Content scrollEnabled={false}>
-          <View
-            style={[
-              s.jcc,
-              s.aic,
-              s.pa4
-            ]}
-          >
-            <Text style={[s.pa4]}>Payment details screen</Text>
-          </View>
-        </Content>
-      </Container>
-    )
-  }
-}
+import PaymentForm from '../components/PaymentForm'
 
 export class RecipientScreen extends React.Component<NavigationScreenProps> {
   render() {
@@ -68,18 +35,7 @@ export class RecipientScreen extends React.Component<NavigationScreenProps> {
           </Right>
         </Header>
         <Content scrollEnabled={false}>
-          <View
-            style={[
-              s.jcc,
-              s.aic,
-              s.pa4
-            ]}
-          >
-            <Text style={[s.pa4]}>Select recipient screen</Text>
-            <Button style={[s.pa4]} onPress={() => userSelected() }>
-              <Text>Go to payment details screen</Text>
-            </Button>
-          </View>
+          <PaymentForm send={() => {}} didSend={() => {} } />
         </Content>
       </Container>
     )
@@ -90,9 +46,6 @@ export default DismissableStackNavigator(
   {
     Recipient: {
       screen: RecipientScreen
-    },
-    PaymentDetails: {
-      screen: PaymentDetailsScreen
     }
   },
   {
