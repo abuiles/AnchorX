@@ -11,6 +11,7 @@ import Login from './Login'
 import Balance from '../../app/containers/Balance'
 import Payment from './Payment'
 import Transfer from './Transfer'
+import PaymentForm from './PaymentForm'
 
 storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />)
 
@@ -47,3 +48,6 @@ storiesOf('Payment', module)
 
 storiesOf('TransferForm', module).
   add('default', () => <Transfer />)
+
+storiesOf('PaymentForm', module).
+  add('default', () => <PaymentForm />)
