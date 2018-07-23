@@ -41,6 +41,15 @@ export default class Drawer extends React.Component<NavigationScreenProps> {
               </Button>
             </ListItem>
             <ListItem>
+              <Button
+                transparent
+                onPress={() => this.props.navigation.navigate('Withdrawal')}>
+                >
+                <Icon name='ios-cash' />
+                <Text>Withdraw money</Text>
+              </Button>
+            </ListItem>
+            <ListItem>
               <ApolloConsumer>
                 {cache => (
                   <Button

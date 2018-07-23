@@ -14,6 +14,7 @@ import Drawer from './Drawer'
 import HomeScreen from './Home'
 import { AuthLoadingScreen, SignInScreen } from './SignInScreen'
 import NewPaymentStack from './NewPayment'
+import WithdrawalStack from './Withdrawal'
 import resolvers from '../resolvers'
 
 const GraphQLHost = 'https://anchorx-api.herokuapp.com/'
@@ -34,6 +35,9 @@ const HomeStack = createStackNavigator(
     },
     Deposit: {
       screen: DepositStack
+    },
+    Withdrawal: {
+      screen: WithdrawalStack
     }
   },
   {
