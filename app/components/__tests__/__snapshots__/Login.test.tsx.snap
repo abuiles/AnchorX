@@ -9,7 +9,6 @@ exports[`renders correctly 1`] = `
       "height": 1334,
     }
   }
-  virtual={undefined}
 >
   <RCTScrollView
     automaticallyAdjustContentInsets={false}
@@ -58,24 +57,14 @@ exports[`renders correctly 1`] = `
       }
     }
     viewIsInsideTabBar={false}
-    virtual={undefined}
   >
     <View>
       <View
         style={Object {}}
-        virtual={undefined}
       >
         <View
-          accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
-          accessibilityTraits={undefined}
           accessible={true}
-          collapsable={undefined}
-          hasTVPreferredFocus={undefined}
-          hitSlop={undefined}
           isTVSelectable={true}
-          nativeID={undefined}
-          onLayout={undefined}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -97,11 +86,8 @@ exports[`renders correctly 1`] = `
               "opacity": 1,
             }
           }
-          testID={undefined}
-          tvParallaxProperties={undefined}
         >
           <View
-            collapsable={undefined}
             style={
               Object {
                 "left": 0,
@@ -127,7 +113,6 @@ exports[`renders correctly 1`] = `
                   "top": 6,
                 }
               }
-              virtual={undefined}
             >
               <Text
                 accessible={true}
@@ -138,7 +123,6 @@ exports[`renders correctly 1`] = `
                     "fontSize": 17,
                   }
                 }
-                virtual={undefined}
               >
                 Username
               </Text>
@@ -170,20 +154,11 @@ exports[`renders correctly 1`] = `
             }
             underlineColorAndroid="rgba(0,0,0,0)"
             value=""
-            virtual={undefined}
           />
         </View>
         <View
-          accessibilityComponentType={undefined}
-          accessibilityLabel={undefined}
-          accessibilityTraits={undefined}
           accessible={true}
-          collapsable={undefined}
-          hasTVPreferredFocus={undefined}
-          hitSlop={undefined}
           isTVSelectable={true}
-          nativeID={undefined}
-          onLayout={undefined}
           onResponderGrant={[Function]}
           onResponderMove={[Function]}
           onResponderRelease={[Function]}
@@ -210,8 +185,6 @@ exports[`renders correctly 1`] = `
               "paddingTop": 6,
             }
           }
-          testID={undefined}
-          tvParallaxProperties={undefined}
         >
           <Text
             accessible={true}
@@ -230,7 +203,6 @@ exports[`renders correctly 1`] = `
               }
             }
             uppercase={false}
-            virtual={undefined}
           >
             Log in or sign up
           </Text>

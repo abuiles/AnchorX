@@ -22,7 +22,7 @@ class TransferFormStory extends React.Component {
         }
 
     return (
-      <TransferForm send={send} />
+      <TransferForm send={send} didSend={()=> {}} />
     )
   }
 }

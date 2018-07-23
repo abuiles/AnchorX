@@ -12,7 +12,7 @@ const send = (amount: string) => {
 jest.useFakeTimers()
 
 it('renders correctly', () => {
-  const rendered = renderer.create(<TransferForm send={send} />).toJSON()
+  const rendered = renderer.create(<TransferForm send={send} didSend={() => {}} />).toJSON()
 
   expect(rendered).toMatchSnapshot()
 });
