@@ -9,6 +9,7 @@ import { InMemoryCache } from 'apollo-cache-inmemory'
 import { onError } from 'apollo-link-error'
 import { withClientState } from 'apollo-link-state'
 
+import DepositStack from './Deposit'
 import Drawer from './Drawer'
 import HomeScreen from './Home'
 import { AuthLoadingScreen, SignInScreen } from './SignInScreen'
@@ -30,6 +31,9 @@ const HomeStack = createStackNavigator(
     },
     NewPayment: {
       screen: NewPaymentStack
+    },
+    Deposit: {
+      screen: DepositStack
     }
   },
   {

@@ -7,6 +7,7 @@ import { Transaction } from '../Types'
 
 interface Props {
   send: (amount: string) => Promise<Transaction>
+  didSend: () => void
 }
 
 interface State {
@@ -37,6 +38,8 @@ class TransferForm extends React.Component<Props, State> {
       sending: false
     })
 
+    this.props.didSend()
+
     return transaction
   }
 
@@ -44,7 +47,7 @@ class TransferForm extends React.Component<Props, State> {
     const { amount, sending } = this.state
 
     return (
-      <Container>
+      <Container style={{backgroundColor: '#F5FCFF'}}>
         <Content scrollEnabled={false}>
           <Form>
             <Item floatingLabel>
