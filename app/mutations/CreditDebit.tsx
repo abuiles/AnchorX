@@ -18,4 +18,12 @@ export const CREDIT_MUTATION = gql`
     }
   }
 `
+
+export const DEBIT_MUTATION = gql`
+  mutation debit($amount: String!, $username: String!) {
+    debit(amount: $amount, username: $username) {
+      id
+    }
+  }
+`
 export default class CreditDebitMutation extends Mutation<Data, Variables> {}
